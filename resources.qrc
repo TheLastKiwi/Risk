@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/Countries">
+        <file>Pics/SA.png</file>
+    </qresource>
+    <qresource prefix="/Map">
+        <file>Map/Map.png</file>
+    </qresource>
+    <qresource prefix="/Directions">
+        <file>Neighbors.txt</file>
+    </qresource>
+</RCC>
