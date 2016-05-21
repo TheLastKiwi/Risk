@@ -4,28 +4,40 @@
 #include "QMouseEvent"
 #include "iostream"
 #include "game.h"
-Country::Country(QString im, MainWindow *parent, QString n):QLabel(parent),image(im),name(n)
+Country::Country(QString im, MainWindow *parent, QString n, Game *g):QLabel(parent),image(im),name(n),theGame(g)
 {
 
-    setFixedSize(118,159);
+    setFixedSize(230,190);
 
     setPixmap(im);
-//    QBitmap q();
+    //    QBitmap q();
     QPixmap d(im);
     setMask(d.mask());
-//setScaledContents(true);
+    //setScaledContents(true);
 
 }
 void Country::mousePressEvent(QMouseEvent* event)
 {
+    for(int i = 0; i < neighborCounter; i++){
+        if (neighbors[i]->isVisible()){
+            neighbors[i]->hide();
+        }
+        else{
+            neighbors[i]->show();
+        }
+
+    }
     offset=event->localPos().toPoint();
-    if(theGame->currentPhase == bonusPhase){
+    switch(theGame->currentPhase){
+    case Game::bonusPhase:
         //place armies on countries
         if (controller == theGame->currentPlayer){//must be controller
             numArmies++;
+
         }
-    }
-    else if(theGame->currentPhase == attackPhase){
+        numArmies++;
+        break;
+    case Game::attackPhase:
         if (!theGame->from){ //nothing in from so first click
             if (controller == theGame->currentPlayer){ // first coutry must be controlled by the player
                 theGame->from = this;
@@ -40,8 +52,8 @@ void Country::mousePressEvent(QMouseEvent* event)
             }
             //else it's the same player so do nothing here
         }
-    }
-    else if (theGame->currentPhase == reinforcePhase){
+        break;
+    case Game::reinforcePhase:
         if (!theGame->from){ //nothing in from so first click
             if (controller == theGame->currentPlayer){ // first coutry must be controlled by the player
                 theGame->from = this;
@@ -56,19 +68,26 @@ void Country::mousePressEvent(QMouseEvent* event)
             }
             //else not same player so do nothing
         }
-    }
-    else if(theGame->currentPhase == endPhase){
+        break;
+    case Game::endPhase:
         //not sure about this one
-    }
+        break;
+    case Game::startPhase:
+        if(controller == 0){
+            theGame->giveControlStart(this);
+            theGame->occipiedTerritories++;
+        }
 
+        break;
+    }
 
 }
 void Country::mouseMoveEvent(QMouseEvent *ev){
 
-    move(ev->windowPos().x() - offset.x(),ev->windowPos().y() - offset.y());
+    //move(ev->windowPos().x() - offset.x(),ev->windowPos().y() - offset.y());
 }
 
 void Country::mouseReleaseEvent(QMouseEvent *ev){
-    std::cout << "map.value(\"" << name.toStdString() << "\")->move(" << x() << "," << y() << ");" <<std::endl;//countryNames[i])"name.toStdString() << " " << x() << " " << y() << std::endl;
-
+    //std::cout << "map.value(\"" << name.toStdString() << "\")->move(" << x() << "," << y() << ");" <<std::endl;//countryNames[i])"name.toStdString() << " " << x() << " " << y() << std::endl;
+    std::cout << numArmies << std::endl;
 }

@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     theGame = new Game(this);
+    theGame->play(2);
     /* 3 phases
 
         Get armies

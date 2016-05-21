@@ -9,11 +9,12 @@
 #include "QPoint"
 class Country : public QLabel
 {
+
 public:
-    Country(QString im, MainWindow *parent, QString n);
-    enum Phase {bonusPhase,attackPhase,reinforcePhase,endPhase};
+    Country(QString im, MainWindow *parent, QString n, Game *g);
     const QString image;
     const QString name;
+
     Game *theGame;
     //TEMP DEBUG VARIABLES
     QPoint offset;
@@ -37,7 +38,7 @@ public:
         }
         return false;
     }
-
+    ~Country(){}
 protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent *ev);

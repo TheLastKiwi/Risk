@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     game.cpp \
     attack.cpp \
     reinforce.cpp \
-    handwindow.cpp
+    handwindow.cpp \
+    deck.cpp
 QMAKE_CXXFLAGS += -std=c++11
 HEADERS  += mainwindow.h \
     country.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     game.h \
     attack.h \
     reinforce.h \
-    handwindow.h
+    handwindow.h \
+    deck.h
 
 FORMS    += mainwindow.ui \
     handwindow.ui

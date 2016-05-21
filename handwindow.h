@@ -13,7 +13,7 @@ class HandWindow : public QDialog
     Q_OBJECT
 
 public:
-    HandWindow(Player *p, QWidget *parent =0);
+    HandWindow(Player *p);
     Card *selectedHand[3];
     ~HandWindow();
     bool isSet(Card *hand[3]);
