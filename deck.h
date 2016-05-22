@@ -5,12 +5,13 @@ class Card;
 class Deck
 {
 public:
-    Deck(HandWindow *handParent);
+    Deck(Game *g);
+    Game *theGame;
     int cardsInDeck = 42;
     Card *deck[42];
     Card *drawCard();
     void shuffle();
-    QString cardImages[42];
+    QString cardImages[42];//={};
 };
 
 #endif // DECK_H

@@ -3,7 +3,6 @@
 #include "fstream"
 Game::Game(MainWindow *p):parent(p)
 {
-
     for(int i = 0; i < 42; i++){
         map.insert(countryNames[i],new Country(countryImages[i],p,countryNames[i],this));
     }
@@ -31,7 +30,12 @@ void Game::makeConnections(){
     myFile.close();
 
 }
+void Game::showHand(){
+
+}
+
 int Game::getBonusArmies(){
+    if(currentPlayer->cardsInHand>0)showHand();
     int numControlled = 0;
     int bonus = 0;
     for(int i = 0; i < 42; i++){
@@ -44,7 +48,7 @@ int Game::getBonusArmies(){
     if(controlContinent(20,6)) bonus +=3;//Africa
     if(controlContinent(26,12)) bonus +=7;//Asia
     if(controlContinent(38,4)) bonus +=2;//Aus
-
+    return bonus;
 }
 bool Game::controlContinent(int start, int len){
     for(int i = start;i<start+len;i++)   {
@@ -57,6 +61,8 @@ bool Game::controlContinent(int start, int len){
 void Game::play(int numPlayers){
     for(int i = 0; i < numPlayers; i++){
         players[i] = new Player(this,i);
+        handFrame[i] = new HandWindow(players[i]); //each player has a hand window
+        //handFrame[i]->show();
     }
     playerCount = numPlayers;
     currentPlayer = players[0];
@@ -66,6 +72,7 @@ void Game::play(int numPlayers){
 
 bool Game::giveControlStart(Country *c){
     c->controller = currentPlayer;
+    c->numArmies++;
     int n = (++occipiedTerritories) % playerCount;
     currentPlayer = players[n];
 }
@@ -76,6 +83,7 @@ void Game::nextPhase(){
     case startPhase:
         currentPhase = bonusPhase;
         currentPlayer = players[0];
+        freeArmies = getBonusArmies();
         //add graphic telling user phase changed
         break;
     case bonusPhase:
@@ -83,9 +91,9 @@ void Game::nextPhase(){
     case attackPhase:
         currentPhase = reinforcePhase;break;
     case reinforcePhase:
-        nextPlayer();
-    case endPhase:
-        nextPlayer();
+        nextPlayer();break;
+//    case endPhase:
+//        nextPlayer();
     }
 
 }

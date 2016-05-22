@@ -1,15 +1,24 @@
 #include "deck.h"
 #include "card.h"
-Deck::Deck(HandWindow *handParent)
+#include "game.h"
+Deck::Deck(Game *g)
 {
+    theGame = g;
+    //QString im, HandWindow *parent, int cardNum,QString countryName
     for(int i = 0; i < 42; i++){
-        deck[i] = new Card(cardImages[i],handParent);
-        deck[i]->move(-100,-100);//off screen
+        deck[i] = new Card(cardImages[i],0,i,g->countryNames[i]);
+        //deck[i]->move(-100,-100); //never going to be seen with null parrent
     }
 }
 
 Card *Deck::drawCard(){
-    return deck[--cardsInDeck];
+    if (cardsInDeck == 0){
+        cardsInDeck = 42;
+        shuffle();shuffle();
+    }
+    Card *c = deck[--cardsInDeck];
+
+    return new Card(c,theGame->handFrame[theGame->currentPlayer->playerID]);
 }
 
 void Deck::shuffle(){

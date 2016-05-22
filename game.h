@@ -13,11 +13,13 @@ class Game
 {
 public:
     MainWindow *parent;
-    HandWindow *handParent;
+    HandWindow *handFrame[6];
     enum Phase {startPhase,bonusPhase,attackPhase,reinforcePhase,endPhase};
     Phase currentPhase;
     Player *players[6];
     int playerCount = 0;
+
+    bool isIntro = true;
     Deck *deck;// = new Deck(handParent);
     Country *from, *to;
     Game(MainWindow *p);
@@ -116,7 +118,7 @@ public:
 };
 
     void nextPhase();
-
+    void showHand();
     void setTo(Country *c){
 
         switch(currentPhase){

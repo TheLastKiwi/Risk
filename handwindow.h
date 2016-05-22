@@ -18,8 +18,6 @@ public:
     ~HandWindow();
     bool isSet(Card *hand[3]);
     void placeCard(Card *c, int i);
-private slots:
-    void on_pushButton_clicked();
 
 private:
     Ui::HandWindow *ui;

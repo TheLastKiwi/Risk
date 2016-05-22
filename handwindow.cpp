@@ -15,7 +15,7 @@ HandWindow::HandWindow(Player *p, QWidget *parent) :
 }
 void HandWindow::placeCard(Card *c, int i){
     //put card on screen
-    //x offset is 70 * i
+    //x offset is 70 * i or something that doesn't overlap
 }
 
 HandWindow::~HandWindow()
@@ -23,10 +23,6 @@ HandWindow::~HandWindow()
     delete ui;
 }
 
-void HandWindow::on_pushButton_clicked()
-{
-    //check if selected are a set
-}
 bool HandWindow::isSet(Card *c[3]){
     bool allSame = true;
     bool allDiff = true;

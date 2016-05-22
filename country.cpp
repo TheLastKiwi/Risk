@@ -18,24 +18,39 @@ Country::Country(QString im, MainWindow *parent, QString n, Game *g):QLabel(pare
 }
 void Country::mousePressEvent(QMouseEvent* event)
 {
-//    for(int i = 0; i < neighborCounter; i++){
-//        if (neighbors[i]->isVisible()){
-//            neighbors[i]->hide();
-//        }
-//        else{
-//            neighbors[i]->show();
-//        }
+    //    for(int i = 0; i < neighborCounter; i++){
+    //        if (neighbors[i]->isVisible()){
+    //            neighbors[i]->hide();
+    //        }
+    //        else{
+    //            neighbors[i]->show();
+    //        }
 
-//    }
-//    offset=event->localPos().toPoint();
+    //    }
+    //    offset=event->localPos().toPoint();
     switch(theGame->currentPhase){
     case Game::bonusPhase:
         //place armies on countries
         if (controller == theGame->currentPlayer){//must be controller
             numArmies++;
+            theGame->freeArmies--;
 
+            if(theGame->freeArmies == 0){
+                if(theGame->isIntro){
+                    theGame->nextPlayer();
+                    theGame->freeArmies = theGame->getBonusArmies();
+                    if(theGame->currentPlayer->playerID==0){
+                        theGame->nextPhase();
+                        theGame->isIntro = false;
+                    }
+                }
+                else{
+                    theGame->nextPhase();
+                }
+            }
         }
-        numArmies++;
+
+        //numArmies++;
         break;
     case Game::attackPhase:
         if (!theGame->from){ //nothing in from so first click
@@ -89,5 +104,7 @@ void Country::mouseMoveEvent(QMouseEvent *ev){
 void Country::mouseReleaseEvent(QMouseEvent *ev){
     //std::cout << "map.value(\"" << name.toStdString() << "\")->move(" << x() << "," << y() << ");" <<std::endl;//countryNames[i])"name.toStdString() << " " << x() << " " << y() << std::endl;
     //std::cout << numArmies << std::endl;
-    std::cout << &*controller <<" " << theGame->occipiedTerritories <<" " << theGame->currentPhase <<std::endl;
+    std::cout << "Owner: " <<&*controller <<" #Occupied: " << theGame->occipiedTerritories <<" Phase: " << theGame->currentPhase <<
+                 " currentPlayer: " <<theGame->currentPlayer->playerID << " Armies: " <<numArmies <<" FreeArmies: " << theGame->freeArmies
+              <<std::endl;
 }
