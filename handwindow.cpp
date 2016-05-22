@@ -1,8 +1,9 @@
 #include "handwindow.h"
 #include "ui_handwindow.h"
-#include "player.h"
-HandWindow::HandWindow(Player *p) :
-    QDialog(0),
+#include "card.h"
+//#include "player.h"
+HandWindow::HandWindow(Player *p, QWidget *parent) :
+    QMainWindow(parent),
     ui(new Ui::HandWindow)
 {
     ui->setupUi(this);

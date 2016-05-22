@@ -1,19 +1,19 @@
 #ifndef HANDWINDOW_H
 #define HANDWINDOW_H
 
-#include <QDialog>
-#include "card.h"
+#include <QMainWindow>
 #include "player.h"
+class Card;
 namespace Ui {
 class HandWindow;
 }
 
-class HandWindow : public QDialog
+class HandWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    HandWindow(Player *p);
+    HandWindow(Player *p, QWidget *parent=0);
     Card *selectedHand[3];
     ~HandWindow();
     bool isSet(Card *hand[3]);
@@ -24,5 +24,4 @@ private slots:
 private:
     Ui::HandWindow *ui;
 };
-
-#endif // HANDWINDOW_H
+#endif //HANDWINDOW_H
