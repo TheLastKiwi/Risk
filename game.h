@@ -18,7 +18,7 @@ public:
     Phase currentPhase;
     Player *players[6];
     int playerCount = 0;
-    Deck *deck = new Deck(handParent);
+    Deck *deck;// = new Deck(handParent);
     Country *from, *to;
     Game(MainWindow *p);
     int occipiedTerritories = 0;
@@ -115,6 +115,8 @@ public:
         ":/Countries/Pics/AU4.png",
 };
 
+    void nextPhase();
+
     void setTo(Country *c){
 
         switch(currentPhase){
@@ -193,17 +195,11 @@ public:
         map.value("Alaska")->move(0,50);
     }
     void makeConnections();
-    QString get(QString s){
-        for(int i = 0; i < 42;i++){
-
-        }
-        return countryNames[1];
-    }
-    QString getImage(QString s){
-
-    }
     bool controlContinent(int start, int len);
     bool giveControlStart(Country *c);
+    void nextPlayer(){
+        currentPlayer = players[(currentPlayer->playerID+1) % playerCount];
+    }
 };
 
 #endif // GAME_H

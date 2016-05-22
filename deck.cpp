@@ -2,9 +2,10 @@
 #include "card.h"
 Deck::Deck(HandWindow *handParent)
 {
-for(int i = 0; i < 42; i++){
-    deck[i] = new Card(cardImages[i],handParent);
-}
+    for(int i = 0; i < 42; i++){
+        deck[i] = new Card(cardImages[i],handParent);
+        deck[i]->move(-100,-100);//off screen
+    }
 }
 
 Card *Deck::drawCard(){
@@ -17,10 +18,10 @@ void Deck::shuffle(){
 
     for(int i = 0; i < 42; i++){
 
-       swapPos = qrand()%42;
+        swapPos = qrand()%42;
 
-       c = deck[i];
-       deck[i] = deck[swapPos];
-       deck[swapPos] = c;
+        c = deck[i];
+        deck[i] = deck[swapPos];
+        deck[swapPos] = c;
     }
 }

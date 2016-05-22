@@ -6,11 +6,12 @@ class Game;
 class Player
 {
 public:
+    int playerID;
     Game *theGame;
     QElapsedTimer seed;
     int cardsInHand = 0;
     Card *hand[5];
-    Player(Game *g);
+    Player(Game *g, int ID);
     int rollDie();
     Card *drawCard();
 };

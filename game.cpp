@@ -3,6 +3,7 @@
 #include "fstream"
 Game::Game(MainWindow *p):parent(p)
 {
+
     for(int i = 0; i < 42; i++){
         map.insert(countryNames[i],new Country(countryImages[i],p,countryNames[i],this));
     }
@@ -55,7 +56,7 @@ bool Game::controlContinent(int start, int len){
 }
 void Game::play(int numPlayers){
     for(int i = 0; i < numPlayers; i++){
-        players[i] = new Player(this);
+        players[i] = new Player(this,i);
     }
     playerCount = numPlayers;
     currentPlayer = players[0];
@@ -65,5 +66,26 @@ void Game::play(int numPlayers){
 
 bool Game::giveControlStart(Country *c){
     c->controller = currentPlayer;
-    currentPlayer = players[(++occipiedTerritories) % playerCount];
+    int n = (++occipiedTerritories) % playerCount;
+    currentPlayer = players[n];
+}
+
+void Game::nextPhase(){
+
+    switch(currentPhase){
+    case startPhase:
+        currentPhase = bonusPhase;
+        currentPlayer = players[0];
+        //add graphic telling user phase changed
+        break;
+    case bonusPhase:
+        currentPhase = attackPhase;break;
+    case attackPhase:
+        currentPhase = reinforcePhase;break;
+    case reinforcePhase:
+        nextPlayer();
+    case endPhase:
+        nextPlayer();
+    }
+
 }

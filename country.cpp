@@ -18,16 +18,16 @@ Country::Country(QString im, MainWindow *parent, QString n, Game *g):QLabel(pare
 }
 void Country::mousePressEvent(QMouseEvent* event)
 {
-    for(int i = 0; i < neighborCounter; i++){
-        if (neighbors[i]->isVisible()){
-            neighbors[i]->hide();
-        }
-        else{
-            neighbors[i]->show();
-        }
+//    for(int i = 0; i < neighborCounter; i++){
+//        if (neighbors[i]->isVisible()){
+//            neighbors[i]->hide();
+//        }
+//        else{
+//            neighbors[i]->show();
+//        }
 
-    }
-    offset=event->localPos().toPoint();
+//    }
+//    offset=event->localPos().toPoint();
     switch(theGame->currentPhase){
     case Game::bonusPhase:
         //place armies on countries
@@ -75,9 +75,8 @@ void Country::mousePressEvent(QMouseEvent* event)
     case Game::startPhase:
         if(controller == 0){
             theGame->giveControlStart(this);
-            theGame->occipiedTerritories++;
+            if(theGame->occipiedTerritories == 42) theGame->nextPhase();
         }
-
         break;
     }
 
@@ -89,5 +88,6 @@ void Country::mouseMoveEvent(QMouseEvent *ev){
 
 void Country::mouseReleaseEvent(QMouseEvent *ev){
     //std::cout << "map.value(\"" << name.toStdString() << "\")->move(" << x() << "," << y() << ");" <<std::endl;//countryNames[i])"name.toStdString() << " " << x() << " " << y() << std::endl;
-    std::cout << numArmies << std::endl;
+    //std::cout << numArmies << std::endl;
+    std::cout << &*controller <<" " << theGame->occipiedTerritories <<" " << theGame->currentPhase <<std::endl;
 }

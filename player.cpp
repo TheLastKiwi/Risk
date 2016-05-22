@@ -1,7 +1,8 @@
 #include "player.h"
 #include "game.h"
-Player::Player(Game *g)
+Player::Player(Game *g, int ID)
 {
+    playerID = ID;
     theGame = g;
     qsrand(seed.nsecsElapsed());
     seed.start();
