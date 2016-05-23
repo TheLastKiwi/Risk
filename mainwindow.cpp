@@ -5,8 +5,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //u =ui;
     ui->setupUi(this);
     theGame = new Game(this);
+
     theGame->play(2);
     /* 3 phases
 

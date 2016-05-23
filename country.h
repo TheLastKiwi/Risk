@@ -17,11 +17,13 @@ public:
 
     Game *theGame;
     //TEMP DEBUG VARIABLES
-    QPoint offset;
+    //QPoint offset;
     //TEMP DEBUG VARIABLES
+    void setController(Player *p);
     Player *controller = NULL;
     int numArmies = 0;
-
+    bool selected;
+    void select(bool sel);
     Country *neighbors[6];
     int neighborCounter = 0;
 

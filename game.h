@@ -14,14 +14,15 @@ class Game
 public:
     MainWindow *parent;
     HandWindow *handFrame[6];
+    bool capturedCountry = false;
     enum Phase {startPhase,bonusPhase,attackPhase,reinforcePhase,endPhase};
     Phase currentPhase;
     Player *players[6];
     int playerCount = 0;
-
+    void setCountry(Country *c);
     bool isIntro = true;
     Deck *deck;// = new Deck(handParent);
-    Country *from, *to;
+    Country *from=0, *to=0;
     Game(MainWindow *p);
     int occipiedTerritories = 0;
     int freeArmies =0;

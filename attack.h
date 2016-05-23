@@ -7,7 +7,7 @@ class Attack
 public:
     Country *from,*to;
     Attack(Country *from, Country *to);
-    attack(int attackDice, int defDice);
+    void attack(int attackDice, int defDice);
     ~Attack();
 };
 

@@ -1,6 +1,9 @@
 #include "game.h"
 #include "cmath"
 #include "fstream"
+#include "ui_mainwindow.h"
+//TEST INCLUDE
+#include "iostream"
 Game::Game(MainWindow *p):parent(p)
 {
     for(int i = 0; i < 42; i++){
@@ -9,6 +12,7 @@ Game::Game(MainWindow *p):parent(p)
     makeConnections();
     placeMap();
 }
+
 void Game::makeConnections(){
     Country *curr;
 
@@ -35,6 +39,7 @@ void Game::showHand(){
 }
 
 int Game::getBonusArmies(){
+    //TO DO: show hand and turn in cards
     if(currentPlayer->cardsInHand>0)showHand();
     int numControlled = 0;
     int bonus = 0;
@@ -82,18 +87,46 @@ void Game::nextPhase(){
     switch(currentPhase){
     case startPhase:
         currentPhase = bonusPhase;
+        parent->ui->lblPhase->setText("Bonus Phase");
         currentPlayer = players[0];
         freeArmies = getBonusArmies();
         //add graphic telling user phase changed
         break;
     case bonusPhase:
+        parent->ui->lblPhase->setText("Attack Phase");
         currentPhase = attackPhase;break;
     case attackPhase:
+        parent->ui->lblPhase->setText("Reinforce Phase");
         currentPhase = reinforcePhase;break;
     case reinforcePhase:
         nextPlayer();break;
 //    case endPhase:
 //        nextPlayer();
     }
-
 }
+
+    void Game::setCountry(Country *c){
+        if(from == c){
+            c->select(false);
+        }
+        if (!from){ //null
+            if (c->controller == currentPlayer){ // first coutry must be controlled by the player
+                from = c;
+                c->select(true);
+                std::cout<<c->name.toStdString()<<std::endl;
+            }
+            //else do nothing because the first target can't be another player
+        }
+        else{
+            if (c->controller != currentPlayer){ //in attack phase you can't attack yourself
+                if(from->isNeighbor(c)){//check if viable target
+                    to = c;
+                    c->select(true);
+                    Attack *a = new Attack(from,to);
+                    a->attack(3,2);
+                    from=0;to=0;
+                }
+            }
+            //else it's the same player so do nothing here
+        }
+    }
