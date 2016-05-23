@@ -20,9 +20,9 @@
    <widget class="QLabel" name="lblPhase">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>0</x>
       <y>560</y>
-      <width>301</width>
+      <width>1221</width>
       <height>31</height>
      </rect>
     </property>
@@ -35,9 +35,85 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/Directions/Neighbors.txt);</string>
+    </property>
     <property name="text">
      <string>Occupy Countries</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblPlayer">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>590</y>
+      <width>1221</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/Directions/Neighbors.txt);</string>
+    </property>
+    <property name="text">
+     <string>Player 1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>191</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(240, 240, 240);
+background-image: url(:/Directions/Neighbors.txt);</string>
+    </property>
+    <property name="title">
+     <string>Dice Rolls</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QLabel" name="lblDiceAtk">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Atk Dice Roll</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblDiceDef">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Def Dice Roll</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

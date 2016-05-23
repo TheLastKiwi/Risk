@@ -26,20 +26,9 @@ public:
     void select(bool sel);
     Country *neighbors[6];
     int neighborCounter = 0;
+    void addNeighbor(Country *c);
+    bool isNeighbor(Country *c);
 
-    void addNeighbor(Country *c){
-        if(isNeighbor(c)) return;
-        neighbors[neighborCounter++] = c;
-        c->addNeighbor(this);
-    }
-
-    bool isNeighbor(Country *c){
-        if (c == 0) return false;
-        for(int i = 0; i < neighborCounter; i++){
-            if (neighbors[i] == c) return true;
-        }
-        return false;
-    }
     ~Country(){}
 protected:
     void mousePressEvent(QMouseEvent* event);

@@ -78,8 +78,10 @@ void Game::play(int numPlayers){
 bool Game::giveControlStart(Country *c){
     c->controller = currentPlayer;
     c->numArmies++;
-    int n = (++occipiedTerritories) % playerCount;
-    currentPlayer = players[n];
+    occupiedTerritories++;
+//    int n = (++occupiedTerritories) % playerCount;
+//    currentPlayer = players[n];
+    nextPlayer();
 }
 
 void Game::nextPhase(){
@@ -100,33 +102,62 @@ void Game::nextPhase(){
         currentPhase = reinforcePhase;break;
     case reinforcePhase:
         nextPlayer();break;
-//    case endPhase:
-//        nextPlayer();
+        //    case endPhase:
+        //        nextPlayer();
     }
 }
 
-    void Game::setCountry(Country *c){
-        if(from == c){
-            c->select(false);
-        }
-        if (!from){ //null
-            if (c->controller == currentPlayer){ // first coutry must be controlled by the player
-                from = c;
-                c->select(true);
-                std::cout<<c->name.toStdString()<<std::endl;
-            }
-            //else do nothing because the first target can't be another player
-        }
-        else{
-            if (c->controller != currentPlayer){ //in attack phase you can't attack yourself
-                if(from->isNeighbor(c)){//check if viable target
-                    to = c;
-                    c->select(true);
-                    Attack *a = new Attack(from,to);
-                    a->attack(3,2);
-                    from=0;to=0;
-                }
-            }
-            //else it's the same player so do nothing here
-        }
+void Game::setCountry(Country *c){
+    if(from == c){
+        c->select(false);
+        from = nullptr;
+        return;
     }
+    if (!from){ //null
+        if (c->controller == currentPlayer){ // first coutry must be controlled by the player
+            from = c;
+            c->select(true);
+            std::cout<<c->name.toStdString()<<std::endl;
+        }
+        //else do nothing because the first target can't be another player
+    }
+    else{
+        if (c->controller != currentPlayer){ //in attack phase you can't attack yourself
+            if(from->isNeighbor(c)){//check if viable target
+                to = c;
+                c->select(true);
+                Attack *a = new Attack(from,to);
+                a->attack(3,2);
+                from=0;to=0;
+            }
+        }
+        //else it's the same player so do nothing here
+    }
+}
+void Game::setTo(Country *c){
+
+    switch(currentPhase){
+    case attackPhase:
+    {
+        //maybe have window pop up asking if they are sure
+        //if they chose yes then do this stuff
+        //highlight country boarder
+        to = c;
+        Attack *a = new Attack(from,to);
+        int attDice,defDice; //get number of dice from window or something
+        a->attack(attDice,defDice);
+    }
+        break;
+    case reinforcePhase:
+    {
+        //maybe have window pop up asking if they are sure
+        //if they chose yes then do this stuff
+        //highlight country boarder
+        to = c;
+        Reinforce *r = new Reinforce(from,to);
+        int n = 5;
+        r->move(n);//get n from a form or selection or something
+    }
+        break;
+    }
+}

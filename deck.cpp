@@ -1,8 +1,10 @@
 #include "deck.h"
 #include "card.h"
 #include "game.h"
+#include "windows.h"
 Deck::Deck(Game *g)
 {
+    qsrand(GetTickCount());
     theGame = g;
     //QString im, HandWindow *parent, int cardNum,QString countryName
     for(int i = 0; i < 42; i++){

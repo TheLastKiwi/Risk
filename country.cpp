@@ -12,6 +12,7 @@ Country::Country(QString im, MainWindow *parent, QString n, Game *g):QLabel(pare
     setPixmap(im);
     //    QBitmap q();
     QPixmap d(im);
+
     setMask(d.mask());
     //setScaledContents(true);
 
@@ -80,13 +81,26 @@ void Country::mousePressEvent(QMouseEvent* event)
     case Game::startPhase:
         if(controller == 0){
             theGame->giveControlStart(this);
-            move(100,200);
-            setText(QString(numArmies));
-            if(theGame->occipiedTerritories == 42) theGame->nextPhase();
+            //move(100,200);
+            //setText(QString(numArmies));
+            if(theGame->occupiedTerritories == 42) theGame->nextPhase();
         }
         break;
     }
 
+}
+void Country::addNeighbor(Country *c){
+    if(isNeighbor(c)) return;
+    neighbors[neighborCounter++] = c;
+    c->addNeighbor(this);
+}
+
+bool Country::isNeighbor(Country *c){
+    if (c == 0) return false;
+    for(int i = 0; i < neighborCounter; i++){
+        if (neighbors[i] == c) return true;
+    }
+    return false;
 }
 void Country::select(bool sel){
     //change boarder to show selected
@@ -103,7 +117,7 @@ void Country::mouseMoveEvent(QMouseEvent *ev){
 
 void Country::mouseReleaseEvent(QMouseEvent *ev){
 
-    std::cout << "Owner: " <<&*controller <<" #Occupied: " << theGame->occipiedTerritories <<" Phase: " << theGame->currentPhase <<
+    std::cout << "Owner: " <<&*controller <<" #Occupied: " << theGame->occupiedTerritories <<" Phase: " << theGame->currentPhase <<
                  " currentPlayer: " <<theGame->currentPlayer->playerID << " Armies: " <<numArmies <<" FreeArmies: " << theGame->freeArmies
               <<std::endl;
 }

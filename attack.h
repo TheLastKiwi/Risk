@@ -8,6 +8,7 @@ public:
     Country *from,*to;
     Attack(Country *from, Country *to);
     void attack(int attackDice, int defDice);
+    void sort(int at[3], int def[2]);
     ~Attack();
 };
 

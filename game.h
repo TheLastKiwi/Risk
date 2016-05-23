@@ -9,6 +9,7 @@
 #include "reinforce.h"
 #include "handwindow.h"
 #include "deck.h"
+#include "ui_mainwindow.h"
 class Game
 {
 public:
@@ -24,7 +25,7 @@ public:
     Deck *deck;// = new Deck(handParent);
     Country *from=0, *to=0;
     Game(MainWindow *p);
-    int occipiedTerritories = 0;
+    int occupiedTerritories = 0;
     int freeArmies =0;
     int getBonusArmies();
     Player *currentPlayer;
@@ -120,33 +121,8 @@ public:
 
     void nextPhase();
     void showHand();
-    void setTo(Country *c){
+    void setTo(Country *c);
 
-        switch(currentPhase){
-        case attackPhase:
-        {
-            //maybe have window pop up asking if they are sure
-            //if they chose yes then do this stuff
-            //highlight country boarder
-            to = c;
-            Attack *a = new Attack(from,to);
-            int attDice,defDice; //get number of dice from window or something
-            a->attack(attDice,defDice);
-        }
-            break;
-        case reinforcePhase:
-        {
-            //maybe have window pop up asking if they are sure
-            //if they chose yes then do this stuff
-            //highlight country boarder
-            to = c;
-            Reinforce *r = new Reinforce(from,to);
-            int n = 5;
-            r->move(n);//get n from a form or selection or something
-        }
-            break;
-        }
-    }
     void setFrom(Country *c){
         //highlight country boarder?
         from = c;
@@ -202,6 +178,7 @@ public:
     bool giveControlStart(Country *c);
     void nextPlayer(){
         currentPlayer = players[(currentPlayer->playerID+1) % playerCount];
+        parent->ui->lblPlayer->setText(QString("Player " + QString(currentPlayer->playerID+1+48)));
     }
 };
 
