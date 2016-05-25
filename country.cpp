@@ -4,11 +4,13 @@
 #include "QMouseEvent"
 #include "iostream"
 #include "game.h"
-Country::Country(QString im, MainWindow *parent, QString n, Game *g):QLabel(parent),image(im),name(n),theGame(g)
+Country::Country(QString im, QString sel, QString p1, QString p2, MainWindow *parent, QString n, Game *g):QLabel(parent),image(im),name(n),theGame(g)
 {
 
     setFixedSize(230,190);
-
+    this->P1 = p1;
+    this->P2= p2;
+    this->Sel = sel;
     setPixmap(im);
     //    QBitmap q();
     QPixmap d(im);
@@ -30,6 +32,21 @@ void Country::mousePressEvent(QMouseEvent* event)
     //    }
     //    offset=event->localPos().toPoint();
     //TO TEST IF CONNECTIONS MADE
+    //TEST DICE SHOW
+    //    int attacker[3];
+    //    int defender[2];
+    //    for(int i = 0; i < 3; i++){
+    //        attacker[i] = qrand() % 6;
+    //    }
+    //    for(int i = 0; i < 2; i++){
+    //        defender[i] = qrand() % 6;
+    //    }
+    //    Attack *a = new Attack(0,0);
+    //    int q=qrand()%3+1,w=qrand()%2+1;
+    //    a->sort(attacker,q,defender,w);
+    //    theGame->showDice(attacker,q,defender,w);
+    //TEST DICE SHOW
+
     switch(theGame->currentPhase){
     case Game::bonusPhase:
         //place armies on countries
@@ -103,10 +120,25 @@ bool Country::isNeighbor(Country *c){
     return false;
 }
 void Country::select(bool sel){
+    if(sel){
+        setPixmap(this->Sel);
+    }
+    else{
+        setControllerImage();
+    }
     //change boarder to show selected
+}
+void Country::setControllerImage(){
+    if (controller->playerID==0){
+        setPixmap(P1);
+    }
+    else{
+        setPixmap(P2);
+    }
 }
 void Country::setController(Player *p){
     controller = p;
+    setControllerImage();
     //do the thing that shows they own the country
 }
 

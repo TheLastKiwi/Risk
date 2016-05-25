@@ -13,8 +13,14 @@
 class Game
 {
 public:
+    //Game map and country images stolen from wikipedia
+    //Dice images also stolen from wikipedia
     MainWindow *parent;
     HandWindow *handFrame[6];
+    QLabel *aDice[3],*dDice[3];
+    //TEST
+    //Dice *allDice[6];
+    //TEST
     bool capturedCountry = false;
     enum Phase {startPhase,bonusPhase,attackPhase,reinforcePhase,endPhase};
     Phase currentPhase;
@@ -118,13 +124,160 @@ public:
         ":/Countries/Pics/AU3.png",
         ":/Countries/Pics/AU4.png",
 };
+    const QString p1Images[42] = {
+        ":/P1/P1/NA1.png",
+        ":/P1/P1/NA2.png",
+        ":/P1/P1/NA3.png",
+        ":/P1/P1/NA4.png",
+        ":/P1/P1/NA5.png",
+        ":/P1/P1/NA6.png",
+        ":/P1/P1/NA7.png",
+        ":/P1/P1/NA8.png",
+        ":/P1/P1/NA9.png",
+        ":/P1/P1/SA1.png",
+        ":/P1/P1/SA2.png",
+        ":/P1/P1/SA3.png",
+        ":/P1/P1/SA4.png",
+        ":/P1/P1/EU1.png",
+        ":/P1/P1/EU2.png",
+        ":/P1/P1/EU3.png",
+        ":/P1/P1/EU4.png",
+        ":/P1/P1/EU5.png",
+        ":/P1/P1/EU6.png",
+        ":/P1/P1/EU7.png",
+        ":/P1/P1/AF1.png",
+        ":/P1/P1/AF2.png",
+        ":/P1/P1/AF3.png",
+        ":/P1/P1/AF4.png",
+        ":/P1/P1/AF5.png",
+        ":/P1/P1/AF6.png",
+        ":/P1/P1/Asia1.png",
+        ":/P1/P1/Asia2.png",
+        ":/P1/P1/Asia3.png",
+        ":/P1/P1/Asia4.png",
+        ":/P1/P1/Asia5.png",
+        ":/P1/P1/Asia6.png",
+        ":/P1/P1/Asia7.png",
+        ":/P1/P1/Asia8.png",
+        ":/P1/P1/Asia9.png",
+        ":/P1/P1/Asia10.png",
+        ":/P1/P1/Asia11.png",
+        ":/P1/P1/Asia12.png",
+        ":/P1/P1/AU1.png",
+        ":/P1/P1/AU2.png",
+        ":/P1/P1/AU3.png",
+        ":/P1/P1/AU4.png",
 
+    };
+    const QString p2Images[42] = {
+        ":/P2/P2/NA1.png",
+        ":/P2/P2/NA2.png",
+        ":/P2/P2/NA3.png",
+        ":/P2/P2/NA4.png",
+        ":/P2/P2/NA5.png",
+        ":/P2/P2/NA6.png",
+        ":/P2/P2/NA7.png",
+        ":/P2/P2/NA8.png",
+        ":/P2/P2/NA9.png",
+        ":/P2/P2/SA1.png",
+        ":/P2/P2/SA2.png",
+        ":/P2/P2/SA3.png",
+        ":/P2/P2/SA4.png",
+        ":/P2/P2/EU1.png",
+        ":/P2/P2/EU2.png",
+        ":/P2/P2/EU3.png",
+        ":/P2/P2/EU4.png",
+        ":/P2/P2/EU5.png",
+        ":/P2/P2/EU6.png",
+        ":/P2/P2/EU7.png",
+        ":/P2/P2/AF1.png",
+        ":/P2/P2/AF2.png",
+        ":/P2/P2/AF3.png",
+        ":/P2/P2/AF4.png",
+        ":/P2/P2/AF5.png",
+        ":/P2/P2/AF6.png",
+        ":/P2/P2/Asia1.png",
+        ":/P2/P2/Asia2.png",
+        ":/P2/P2/Asia3.png",
+        ":/P2/P2/Asia4.png",
+        ":/P2/P2/Asia5.png",
+        ":/P2/P2/Asia6.png",
+        ":/P2/P2/Asia7.png",
+        ":/P2/P2/Asia8.png",
+        ":/P2/P2/Asia9.png",
+        ":/P2/P2/Asia10.png",
+        ":/P2/P2/Asia11.png",
+        ":/P2/P2/Asia12.png",
+        ":/P2/P2/AU1.png",
+        ":/P2/P2/AU2.png",
+        ":/P2/P2/AU3.png",
+        ":/P2/P2/AU4.png",
+
+    };
+    const QString selImages[42] = {
+        ":/Sel/Selected/NA1.png",
+        ":/Sel/Selected/NA2.png",
+        ":/Sel/Selected/NA3.png",
+        ":/Sel/Selected/NA4.png",
+        ":/Sel/Selected/NA5.png",
+        ":/Sel/Selected/NA6.png",
+        ":/Sel/Selected/NA7.png",
+        ":/Sel/Selected/NA8.png",
+        ":/Sel/Selected/NA9.png",
+        ":/Sel/Selected/SA1.png",
+        ":/Sel/Selected/SA2.png",
+        ":/Sel/Selected/SA3.png",
+        ":/Sel/Selected/SA4.png",
+        ":/Sel/Selected/EU1.png",
+        ":/Sel/Selected/EU2.png",
+        ":/Sel/Selected/EU3.png",
+        ":/Sel/Selected/EU4.png",
+        ":/Sel/Selected/EU5.png",
+        ":/Sel/Selected/EU6.png",
+        ":/Sel/Selected/EU7.png",
+        ":/Sel/Selected/AF1.png",
+        ":/Sel/Selected/AF2.png",
+        ":/Sel/Selected/AF3.png",
+        ":/Sel/Selected/AF4.png",
+        ":/Sel/Selected/AF5.png",
+        ":/Sel/Selected/AF6.png",
+        ":/Sel/Selected/Asia1.png",
+        ":/Sel/Selected/Asia2.png",
+        ":/Sel/Selected/Asia3.png",
+        ":/Sel/Selected/Asia4.png",
+        ":/Sel/Selected/Asia5.png",
+        ":/Sel/Selected/Asia6.png",
+        ":/Sel/Selected/Asia7.png",
+        ":/Sel/Selected/Asia8.png",
+        ":/Sel/Selected/Asia9.png",
+        ":/Sel/Selected/Asia10.png",
+        ":/Sel/Selected/Asia11.png",
+        ":/Sel/Selected/Asia12.png",
+        ":/Sel/Selected/AU1.png",
+        ":/Sel/Selected/AU2.png",
+        ":/Sel/Selected/AU3.png",
+        ":/Sel/Selected/AU4.png",
+
+    };
+
+
+    const QString diceImages[6] = {
+        ":/Dice/Dice/D1.png",
+        ":/Dice/Dice/D2.png",
+        ":/Dice/Dice/D3.png",
+        ":/Dice/Dice/D4.png",
+        ":/Dice/Dice/D5.png",
+        ":/Dice/Dice/D6.png",
+    };
     void nextPhase();
     void showHand();
-    void setTo(Country *c);
+    //void setTo(Country *c);
+    void showDice(int attDice[], int a, int defDice[], int d);
+
 
     void setFrom(Country *c){
         //highlight country boarder?
+        //highlight possible targets?
         from = c;
     }
     void play(int numPlayers);
@@ -180,6 +333,8 @@ public:
         currentPlayer = players[(currentPlayer->playerID+1) % playerCount];
         parent->ui->lblPlayer->setText(QString("Player " + QString(currentPlayer->playerID+1+48)));
     }
+
+
 };
 
 #endif // GAME_H

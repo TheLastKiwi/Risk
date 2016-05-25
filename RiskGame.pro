@@ -22,6 +22,7 @@ SOURCES += main.cpp\
     reinforce.cpp \
     deck.cpp \
     handwindow.cpp
+
 QMAKE_CXXFLAGS += -std=c++11
 HEADERS  += mainwindow.h \
     country.h \

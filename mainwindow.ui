@@ -69,13 +69,13 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="gbDice">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>460</y>
       <width>191</width>
-      <height>141</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -92,26 +92,26 @@ background-image: url(:/Directions/Neighbors.txt);</string>
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>20</y>
        <width>71</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Atk Dice Roll</string>
+      <string>Attacker</string>
      </property>
     </widget>
     <widget class="QLabel" name="lblDiceDef">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>100</y>
+       <y>90</y>
        <width>71</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>Def Dice Roll</string>
+      <string>Defender</string>
      </property>
     </widget>
    </widget>

@@ -11,8 +11,9 @@ class Country : public QLabel
 {
 
 public:
-    Country(QString im, MainWindow *parent, QString n, Game *g);
+    Country(QString im, QString sel, QString p1, QString p2, MainWindow *parent, QString n, Game *g);
     const QString image;
+    QString P1,P2,Sel;
     const QString name;
 
     Game *theGame;
@@ -28,6 +29,8 @@ public:
     int neighborCounter = 0;
     void addNeighbor(Country *c);
     bool isNeighbor(Country *c);
+    void setControllerImage();
+
 
     ~Country(){}
 protected:
