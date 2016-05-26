@@ -73,3 +73,8 @@ void MainWindow::on_actionNew_Game_triggered()
 {
     theGame = new Game(this);
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    theGame->endTurn();
+}

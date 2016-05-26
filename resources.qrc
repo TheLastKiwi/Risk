@@ -189,4 +189,48 @@
         <file>Selected/SA3.png</file>
         <file>Selected/SA4.png</file>
     </qresource>
+    <qresource prefix="/Cards">
+        <file>Cards/AF1.png</file>
+        <file>Cards/AF2.png</file>
+        <file>Cards/AF3.png</file>
+        <file>Cards/AF4.png</file>
+        <file>Cards/AF5.png</file>
+        <file>Cards/AF6.png</file>
+        <file>Cards/Aisa1.png</file>
+        <file>Cards/Aisa2.png</file>
+        <file>Cards/Aisa3.png</file>
+        <file>Cards/Aisa4.png</file>
+        <file>Cards/Aisa5.png</file>
+        <file>Cards/Aisa6.png</file>
+        <file>Cards/Aisa7.png</file>
+        <file>Cards/Aisa8.png</file>
+        <file>Cards/Aisa9.png</file>
+        <file>Cards/Aisa10.png</file>
+        <file>Cards/Aisa11.png</file>
+        <file>Cards/Aisa12.png</file>
+        <file>Cards/AU1.png</file>
+        <file>Cards/AU2.png</file>
+        <file>Cards/AU3.png</file>
+        <file>Cards/AU4.png</file>
+        <file>Cards/EU1.png</file>
+        <file>Cards/EU2.png</file>
+        <file>Cards/EU3.png</file>
+        <file>Cards/EU4.png</file>
+        <file>Cards/EU5.png</file>
+        <file>Cards/EU6.png</file>
+        <file>Cards/EU7.png</file>
+        <file>Cards/NA1.png</file>
+        <file>Cards/NA2.png</file>
+        <file>Cards/NA3.png</file>
+        <file>Cards/NA4.png</file>
+        <file>Cards/NA5.png</file>
+        <file>Cards/NA6.png</file>
+        <file>Cards/NA7.png</file>
+        <file>Cards/NA8.png</file>
+        <file>Cards/NA9.png</file>
+        <file>Cards/SA1.png</file>
+        <file>Cards/SA2.png</file>
+        <file>Cards/SA3.png</file>
+        <file>Cards/SA4.png</file>
+    </qresource>
 </RCC>

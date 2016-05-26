@@ -6,14 +6,12 @@ HandWindow::HandWindow(Player *p, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::HandWindow)
 {
+    thePlayer = p;
     ui->setupUi(this);
-    for(int i = 0; i < 5; i++){
-        if(p->hand[i]){//if card not null
-            placeCard(p->hand[i],i);
-        }
-    }
+
 }
 void HandWindow::placeCard(Card *c, int i){
+    c->move(10+120*i,30);
     //put card on screen
     //x offset is 70 * i or something that doesn't overlap
 }
@@ -21,6 +19,13 @@ void HandWindow::placeCard(Card *c, int i){
 HandWindow::~HandWindow()
 {
     delete ui;
+}
+void HandWindow::displayHand(){
+    for(int i = 0; i < thePlayer->cardsInHand; i++){
+        if(thePlayer->hand[i]){//if card not null
+            placeCard(thePlayer->hand[i],i);
+        }
+    }
 }
 
 bool HandWindow::isSet(Card *c[3]){

@@ -52,9 +52,9 @@ void Country::mousePressEvent(QMouseEvent* event)
         //place armies on countries
         if (controller == theGame->currentPlayer){//must be controller
             numArmies++;
-            theGame->freeArmies--;
+            theGame->currentPlayer->freeArmies--;
 
-            if(theGame->freeArmies == 0){
+            if(theGame->currentPlayer->freeArmies == 0){
                 if(theGame->isIntro){//if intro then switch players
                     theGame->nextPlayer();
 
@@ -63,7 +63,7 @@ void Country::mousePressEvent(QMouseEvent* event)
                         theGame->isIntro = false;
                         return;
                     }
-                    theGame->freeArmies = theGame->getBonusArmies();
+                    theGame->currentPlayer->freeArmies = theGame->getBonusArmies();
                 }
                 else{ //if not intro then just go to next phase
                     theGame->nextPhase();
@@ -150,6 +150,6 @@ void Country::mouseMoveEvent(QMouseEvent *ev){
 void Country::mouseReleaseEvent(QMouseEvent *ev){
 
     std::cout << "Owner: " <<&*controller <<" #Occupied: " << theGame->occupiedTerritories <<" Phase: " << theGame->currentPhase <<
-                 " currentPlayer: " <<theGame->currentPlayer->playerID << " Armies: " <<numArmies <<" FreeArmies: " << theGame->freeArmies
+                 " currentPlayer: " <<theGame->currentPlayer->playerID << " Armies: " <<numArmies <<" FreeArmies: " << theGame->currentPlayer->freeArmies
               <<std::endl;
 }

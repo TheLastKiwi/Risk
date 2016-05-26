@@ -34,7 +34,7 @@ void Attack::attack(int attackDice, int defDice){
 
     int attLoss=0,defLoss=0;
     for(int i =0; i < std::min(attackDice,defDice); i++){
-        if(attacker[i]<defender[i]){
+        if(attacker[i]<=defender[i]){
             attLoss++;
         }
         else{
@@ -44,7 +44,8 @@ void Attack::attack(int attackDice, int defDice){
     from->numArmies-=attLoss;
     to->numArmies-=defLoss;
     if(to->numArmies <= 0){
-        to->setController(from->controller);
+        //to->setController(from->controller);
+        theGame->takeOver(from->controller,to);
     }
     to->setControllerImage();from->setControllerImage();
 }

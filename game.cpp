@@ -22,17 +22,22 @@ Game::Game(MainWindow *p)
         dDice[i]= new QLabel(p);//new Dice(p);
         dDice[i]->setFixedSize(35,35);
         dDice[i]->move(30+40*i,590);
-//        aDice[i] = new QLabel(p);
-//        aDice[i]->setFixedSize(35,35);
-//        aDice[i]->setPixmap(diceImages[i]);
-//        aDice[i]->move(30+35*i,400);
-        //sa=sa.append(QString(attDice[i]+48)).append(" ");//QString(parent->ui->lblDiceAtk->text() + QString(attDice[i]+48) + " "));
     }
+    deck = new Deck(this);
 //    for(int i = 0; i < 3; i++){
 //        dDice[i]= new QLabel(p);//new Dice(p);
 //        dDice[i]->setFixedSize(35,35);
 //        dDice[i]->move(30+40*i,440);
-//    }
+//    }//        aDice[i] = new QLabel(p);
+    //        aDice[i]->setFixedSize(35,35);
+    //        aDice[i]->setPixmap(diceImages[i]);
+    //        aDice[i]->move(30+35*i,400);
+            //sa=sa.append(QString(attDice[i]+48)).append(" ");
+    //QString(parent->ui->lblDiceAtk->text() + QString(attDice[i]+48) + " "));
+}
+void Game::takeOver(Player *p, Country *c){
+    c->setController(p);
+    capturedCountry = true;
 }
 
 void Game::makeConnections(){
@@ -57,7 +62,9 @@ void Game::makeConnections(){
 
 }
 void Game::showHand(){
-
+    int PID = currentPlayer->playerID;
+    handFrame[PID]->show();
+    handFrame[PID]->displayHand();
 }
 
 int Game::getBonusArmies(){
@@ -65,6 +72,7 @@ int Game::getBonusArmies(){
     if(currentPlayer->cardsInHand>0)showHand();
     int numControlled = 0;
     int bonus = 0;
+    if(isIntro)bonus=40;
     for(int i = 0; i < 42; i++){
         if (map.value(countryNames[i])->controller == currentPlayer) numControlled++;
     }
@@ -134,7 +142,7 @@ void Game::nextPhase(){
         currentPhase = bonusPhase;
         parent->ui->lblPhase->setText("Bonus Phase");
         currentPlayer = players[0];
-        freeArmies = getBonusArmies();
+        currentPlayer->freeArmies = getBonusArmies();
         //add graphic telling user phase changed
         break;
     case bonusPhase:
@@ -144,7 +152,11 @@ void Game::nextPhase(){
         parent->ui->lblPhase->setText("Reinforce Phase");
         currentPhase = reinforcePhase;break;
     case reinforcePhase:
-        nextPlayer();break;
+        parent->ui->lblPhase->setText("Bonus Phase");
+        currentPhase = bonusPhase;
+        nextPlayer();
+        getBonusArmies();
+        break;
         //    case endPhase:
         //        nextPlayer();
     }

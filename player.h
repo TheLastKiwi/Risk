@@ -14,6 +14,7 @@ public:
     Player(Game *g, int ID);
     int rollDie();
     Card *drawCard();
+    int freeArmies =0;
 };
 
 #endif // PLAYER_H

@@ -28,7 +28,7 @@ public:
     int playerCount = 0;
     void setCountry(Country *c);
     bool isIntro = true;
-    Deck *deck;// = new Deck(handParent);
+    Deck *deck;//= new Deck(handParent);
     Country *from=0, *to=0;
     Game(MainWindow *p);
     int occupiedTerritories = 0;
@@ -123,7 +123,7 @@ public:
         ":/Countries/Pics/AU2.png",
         ":/Countries/Pics/AU3.png",
         ":/Countries/Pics/AU4.png",
-};
+    };
     const QString p1Images[42] = {
         ":/P1/P1/NA1.png",
         ":/P1/P1/NA2.png",
@@ -259,8 +259,6 @@ public:
         ":/Sel/Selected/AU4.png",
 
     };
-
-
     const QString diceImages[6] = {
         ":/Dice/Dice/D1.png",
         ":/Dice/Dice/D2.png",
@@ -269,6 +267,8 @@ public:
         ":/Dice/Dice/D5.png",
         ":/Dice/Dice/D6.png",
     };
+
+    void takeOver(Player *p, Country *c);
     void nextPhase();
     void showHand();
     //void setTo(Country *c);
@@ -333,7 +333,15 @@ public:
         currentPlayer = players[(currentPlayer->playerID+1) % playerCount];
         parent->ui->lblPlayer->setText(QString("Player " + QString(currentPlayer->playerID+1+48)));
     }
+    void endTurn(){
 
+        if(capturedCountry){
+            currentPlayer->drawCard();
+            showHand();
+            nextPlayer();
+        }
+        capturedCountry = false;
+    }
 
 };
 

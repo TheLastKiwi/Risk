@@ -16,9 +16,10 @@ public:
     HandWindow(Player *p, QWidget *parent=0);
     Card *selectedHand[3];
     ~HandWindow();
+    Player *thePlayer;
     bool isSet(Card *hand[3]);
     void placeCard(Card *c, int i);
-
+    void displayHand();
 private:
     Ui::HandWindow *ui;
 };
