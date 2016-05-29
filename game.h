@@ -33,9 +33,11 @@ public:
     Game(MainWindow *p);
     int occupiedTerritories = 0;
     int freeArmies =0;
-    int getBonusArmies();
+    void getBonusArmies();
     Player *currentPlayer;
     QHash<QString,Country*> map;
+    int turnInNumber =0;
+    int turnInValue[23] = {4,6,8,10,12,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100};
     const QString countryNames[42] = {
         "Alaska",
         "Alberta",
@@ -267,7 +269,7 @@ public:
         ":/Dice/Dice/D5.png",
         ":/Dice/Dice/D6.png",
     };
-
+    void updateBonusArmiesLabel();
     void takeOver(Player *p, Country *c);
     void nextPhase();
     void showHand();
@@ -329,19 +331,9 @@ public:
     void makeConnections();
     bool controlContinent(int start, int len);
     bool giveControlStart(Country *c);
-    void nextPlayer(){
-        currentPlayer = players[(currentPlayer->playerID+1) % playerCount];
-        parent->ui->lblPlayer->setText(QString("Player " + QString(currentPlayer->playerID+1+48)));
-    }
-    void endTurn(){
-
-        if(capturedCountry){
-            currentPlayer->drawCard();
-            showHand();
-            nextPlayer();
-        }
-        capturedCountry = false;
-    }
+    void nextPlayer();
+    void setupNextPlayer();
+    void endTurn();
 
 };
 

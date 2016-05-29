@@ -8,9 +8,18 @@ Deck::Deck(Game *g)
     theGame = g;
     //QString im, HandWindow *parent, int cardNum,QString countryName
     for(int i = 0; i < 42; i++){
-        deck[i] = new Card(cardImages[i],0,i,g->countryNames[i]);
-        //deck[i]->move(-100,-100); //never going to be seen with null parrent
+        deck[i] = new Card(cardImages[i],theGame->parent,armyVal[i],g->countryNames[i]);
+        deck[i]->move(-150,-150);
+//        if(i<21){
+//        deck[i]->move(50*i,50);
+//        }
+//            else{
+//            deck[i]->move((50*i)-1000,130); //never going to be seen with null parrent
+
+//        }
     }
+    shuffle();
+
 }
 
 Card *Deck::drawCard(){

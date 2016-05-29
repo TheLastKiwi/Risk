@@ -48,6 +48,7 @@ void Attack::attack(int attackDice, int defDice){
         theGame->takeOver(from->controller,to);
     }
     to->setControllerImage();from->setControllerImage();
+
 }
 
 void Attack::sort(int at[], int ad, int def[], int dd){

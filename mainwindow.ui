@@ -120,12 +120,34 @@ background-image: url(:/Directions/Neighbors.txt);</string>
      <rect>
       <x>830</x>
       <y>570</y>
-      <width>75</width>
+      <width>121</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>End Turn</string>
+     <string>End Attack/Next Phase</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblBonus">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>350</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

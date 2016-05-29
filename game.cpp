@@ -15,7 +15,7 @@ Game::Game(MainWindow *p)
     for(int i = 0; i < 3; i++){
         aDice[i] = new QLabel(p);//new Dice(p);//QLabel(parent);
         aDice[i]->setFixedSize(35,35);
-//        allDice[i]->setPixmap(diceImages[i]);
+        //        allDice[i]->setPixmap(diceImages[i]);
         aDice[i]->move(30+40*i,520);
 
 
@@ -24,15 +24,15 @@ Game::Game(MainWindow *p)
         dDice[i]->move(30+40*i,590);
     }
     deck = new Deck(this);
-//    for(int i = 0; i < 3; i++){
-//        dDice[i]= new QLabel(p);//new Dice(p);
-//        dDice[i]->setFixedSize(35,35);
-//        dDice[i]->move(30+40*i,440);
-//    }//        aDice[i] = new QLabel(p);
+    //    for(int i = 0; i < 3; i++){
+    //        dDice[i]= new QLabel(p);//new Dice(p);
+    //        dDice[i]->setFixedSize(35,35);
+    //        dDice[i]->move(30+40*i,440);
+    //    }//        aDice[i] = new QLabel(p);
     //        aDice[i]->setFixedSize(35,35);
     //        aDice[i]->setPixmap(diceImages[i]);
     //        aDice[i]->move(30+35*i,400);
-            //sa=sa.append(QString(attDice[i]+48)).append(" ");
+    //sa=sa.append(QString(attDice[i]+48)).append(" ");
     //QString(parent->ui->lblDiceAtk->text() + QString(attDice[i]+48) + " "));
 }
 void Game::takeOver(Player *p, Country *c){
@@ -63,11 +63,16 @@ void Game::makeConnections(){
 }
 void Game::showHand(){
     int PID = currentPlayer->playerID;
+//    for(int i = 0; i < currentPlayer->cardsInHand;i++){
+//        Card *t = currentPlayer->hand[i];
+//        currentPlayer->hand[i]=new Card(currentPlayer->hand[i],handFrame[PID]);
+//        delete t;
+//    }
     handFrame[PID]->show();
     handFrame[PID]->displayHand();
 }
 
-int Game::getBonusArmies(){
+void Game::getBonusArmies(){
     //TO DO: show hand and turn in cards
     if(currentPlayer->cardsInHand>0)showHand();
     int numControlled = 0;
@@ -83,7 +88,8 @@ int Game::getBonusArmies(){
     if(controlContinent(20,6)) bonus +=3;//Africa
     if(controlContinent(26,12)) bonus +=7;//Asia
     if(controlContinent(38,4)) bonus +=2;//Aus
-    return bonus;
+    currentPlayer->freeArmies=bonus;
+    updateBonusArmiesLabel();
 }
 bool Game::controlContinent(int start, int len){
     for(int i = start;i<start+len;i++)   {
@@ -93,10 +99,15 @@ bool Game::controlContinent(int start, int len){
     }
     return true;
 }
+void Game::updateBonusArmiesLabel(){
+    parent->ui->lblBonus->setText(QString("Bonus Armies ") + QString(QString::number(currentPlayer->freeArmies)));
+}
+
 void Game::play(int numPlayers){
     for(int i = 0; i < numPlayers; i++){
         players[i] = new Player(this,i);
         handFrame[i] = new HandWindow(players[i]); //each player has a hand window
+        handFrame[i]->setWindowTitle(QString("Player: ") + QString::number(i+1) + QString(" hand") + QString().sprintf("%08p", handFrame[i]));
         //handFrame[i]->show();
     }
     playerCount = numPlayers;
@@ -110,9 +121,9 @@ bool Game::giveControlStart(Country *c){
     c->numArmies++;
     occupiedTerritories++;
     c->setControllerImage();
-//    int n = (++occupiedTerritories) % playerCount;
-//    currentPlayer = players[n];
-    nextPlayer();
+    //    int n = (++occupiedTerritories) % playerCount;
+    //    currentPlayer = players[n];
+    setupNextPlayer();
 }
 void Game::showDice(int attDice[],int a, int defDice[],int d){
     //parent->ui->lblDiceAtk->setText("");
@@ -124,7 +135,7 @@ void Game::showDice(int attDice[],int a, int defDice[],int d){
         dDice[i]->setPixmap(QString());
     }
     for(int i = 0; i < a; i++){
-    //att dice
+        //att dice
         aDice[i]->setPixmap(diceImages[attDice[i]]);
     }
     //parent->ui->lblDiceAtk->setText(sa);
@@ -136,30 +147,59 @@ void Game::showDice(int attDice[],int a, int defDice[],int d){
     //parent->ui->lblDiceDef->setText(sd);
 }
 void Game::nextPhase(){
-
+    //NEED TO CLEAN THIS SHIT UP
+    //NEXT PLAYER NEXT PHASE END TURN
+    QString thePhase;
     switch(currentPhase){
     case startPhase:
         currentPhase = bonusPhase;
-        parent->ui->lblPhase->setText("Bonus Phase");
+        thePhase = "Bonus Phase";
+        //parent->ui->lblPhase->setText("Bonus Phase");
         currentPlayer = players[0];
-        currentPlayer->freeArmies = getBonusArmies();
+        getBonusArmies();
         //add graphic telling user phase changed
         break;
     case bonusPhase:
-        parent->ui->lblPhase->setText("Attack Phase");
+        thePhase = "Attack Phase";
+        //parent->ui->lblPhase->setText("Attack Phase");
         currentPhase = attackPhase;break;
     case attackPhase:
-        parent->ui->lblPhase->setText("Reinforce Phase");
+        thePhase = "Reinforce Phase";
+        //parent->ui->lblPhase->setText("Reinforce Phase");
         currentPhase = reinforcePhase;break;
     case reinforcePhase:
-        parent->ui->lblPhase->setText("Bonus Phase");
-        currentPhase = bonusPhase;
-        nextPlayer();
-        getBonusArmies();
+        thePhase = "Bonus Phase";
+
+        //parent->ui->lblPhase->setText("Bonus Phase");
+        //currentPhase = bonusPhase;
+        endTurn();
+        updateBonusArmiesLabel();
         break;
         //    case endPhase:
         //        nextPlayer();
     }
+    parent->ui->lblPhase->setText(thePhase);
+}
+void Game::endTurn(){
+
+    if(capturedCountry){
+        currentPlayer->drawCard();
+    }
+    showHand();
+    nextPlayer();
+    from=0;to=0;
+    capturedCountry = false;
+
+}
+void Game::nextPlayer(){
+        setupNextPlayer();//changes players and player label
+        currentPhase = bonusPhase;
+        getBonusArmies();
+    }
+
+void Game::setupNextPlayer(){
+    currentPlayer = players[(currentPlayer->playerID+1) % playerCount];
+    parent->ui->lblPlayer->setText(QString("Player " + QString::number(currentPlayer->playerID+1)));
 }
 
 void Game::setCountry(Country *c){
@@ -169,23 +209,19 @@ void Game::setCountry(Country *c){
         return;
     }
     if (!from){ //null
-        if (c->controller == currentPlayer){ // first coutry must be controlled by the player
             from = c;
             c->select(true);
             std::cout<<c->name.toStdString()<<std::endl;
-        }
+
         //else do nothing because the first target can't be another player
     }
     else{
-        if (c->controller != currentPlayer){ //in attack phase you can't attack yourself
-            if(from->isNeighbor(c)){//check if viable target
+
                 to = c;
                 c->select(true);
-                Attack *a = new Attack(from,to);
-                a->attack(3,2);
-                from=0;to=0;
-            }
-        }
+
+
+
         //else it's the same player so do nothing here
     }
 }

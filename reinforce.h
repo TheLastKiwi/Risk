@@ -8,10 +8,7 @@ public:
     Country *from, *to;
     Reinforce(Country *from, Country *to);
     ~Reinforce();
-    void move(int n){
-        from->numArmies -= n;
-        to->numArmies += n;
-    }
+    void move(int n);
 };
 
 #endif // REINFORCE_H

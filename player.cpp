@@ -14,4 +14,12 @@ int Player::rollDie(){
 
 Card *Player::drawCard(){
     hand[cardsInHand++] = theGame->deck->drawCard();
+
+}
+void Player::updateHand(Card *newHand[]){
+    for(int i = 0; i < 5; i++){
+        if(hand[i] && hand[i]->selected)delete hand[i];
+        hand[i] = newHand[i];
+    }
+    cardsInHand-=3;
 }

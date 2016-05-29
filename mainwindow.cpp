@@ -76,5 +76,5 @@ void MainWindow::on_actionNew_Game_triggered()
 
 void MainWindow::on_pushButton_clicked()
 {
-    theGame->endTurn();
+    theGame->nextPhase();
 }

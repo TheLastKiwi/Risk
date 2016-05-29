@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     attack.cpp \
     reinforce.cpp \
     deck.cpp \
-    handwindow.cpp
+    handwindow.cpp \
+    errordialog.cpp
 
 QMAKE_CXXFLAGS += -std=c++11
 HEADERS  += mainwindow.h \
@@ -32,10 +33,12 @@ HEADERS  += mainwindow.h \
     attack.h \
     reinforce.h \
     deck.h \
-    handwindow.h
+    handwindow.h \
+    errordialog.h
 
 FORMS    += mainwindow.ui \
-    handwindow.ui
+    handwindow.ui \
+    errordialog.ui
 
 RESOURCES += \
     resources.qrc

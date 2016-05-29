@@ -6,8 +6,8 @@ class Country;
 class Card : public QLabel
 {
 public:
-    Card(QString im, HandWindow *parent, int armyID,QString countryName);
-    Card(Card *c, HandWindow *p);
+    Card(QString im, QWidget *parent, int armyID,QString countryName);
+    Card(Card *c, QWidget *parent);
     QString country;
     QString image;
     int army;

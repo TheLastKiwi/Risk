@@ -196,18 +196,6 @@
         <file>Cards/AF4.png</file>
         <file>Cards/AF5.png</file>
         <file>Cards/AF6.png</file>
-        <file>Cards/Aisa1.png</file>
-        <file>Cards/Aisa2.png</file>
-        <file>Cards/Aisa3.png</file>
-        <file>Cards/Aisa4.png</file>
-        <file>Cards/Aisa5.png</file>
-        <file>Cards/Aisa6.png</file>
-        <file>Cards/Aisa7.png</file>
-        <file>Cards/Aisa8.png</file>
-        <file>Cards/Aisa9.png</file>
-        <file>Cards/Aisa10.png</file>
-        <file>Cards/Aisa11.png</file>
-        <file>Cards/Aisa12.png</file>
         <file>Cards/AU1.png</file>
         <file>Cards/AU2.png</file>
         <file>Cards/AU3.png</file>
@@ -232,5 +220,17 @@
         <file>Cards/SA2.png</file>
         <file>Cards/SA3.png</file>
         <file>Cards/SA4.png</file>
+        <file>Cards/Asia1.png</file>
+        <file>Cards/Asia2.png</file>
+        <file>Cards/Asia3.png</file>
+        <file>Cards/Asia4.png</file>
+        <file>Cards/Asia5.png</file>
+        <file>Cards/Asia6.png</file>
+        <file>Cards/Asia7.png</file>
+        <file>Cards/Asia8.png</file>
+        <file>Cards/Asia9.png</file>
+        <file>Cards/Asia10.png</file>
+        <file>Cards/Asia11.png</file>
+        <file>Cards/Asia12.png</file>
     </qresource>
 </RCC>
